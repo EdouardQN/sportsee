@@ -1,0 +1,48 @@
+.nav{
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 80px;
+    height: 100vh;
+    background-color: #020203;
+    color: #FFFFFF;
+
+}
+
+.nav-sports{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 98px;
+}
+
+.nav-sports-btn{
+    cursor: pointer;
+    width: 54px;
+    height: 54px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+}
+
+.nav-sports-btn img{
+    width: 56px;
+    height: 52px;
+}
+
+.nav-sports-btn svg{
+    fill: #FF0101;
+}
+
+.nav-copyrights{
+    font-size: 11px;
+    white-space: nowrap;
+    transform: rotate(-90deg);
+    align-self: flex-end;
+}
