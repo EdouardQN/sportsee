@@ -1,6 +1,10 @@
-import React, { PureComponent } from 'react';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-
+import { 
+  Radar, 
+  RadarChart, 
+  PolarGrid, 
+  PolarAngleAxis, 
+  ResponsiveContainer 
+} from 'recharts';
 
 const dataUser = [
     {
@@ -42,28 +46,31 @@ const dataUser = [
     }
 ];
 
-const transformData = (data) => {
-  return data[0].data.map(item => ({
-    kind: data[0].kind[item.kind],
-    value: item.value
-  }));
-};
+export default function Performance(props) {
 
-export default class Performance extends PureComponent {
+  const performance = props.performance;
 
+  const arrayOfPerf = performance.data;
+  // console.log(arrayOfPerf);
+  const arrayofKindPerf = Object.values(performance.kind);
+  // console.log(arrayofKindPerf);
+
+  const replaceKindNbrWithValue = (arrayOfPerf, arrayofKindPerf) => {
+    return arrayOfPerf.map(item => ({
+      ...item,
+      kind: arrayofKindPerf[item.kind - 1] // Soustraire 1 car les indices commencent à 0
+    }));
+  };
+  const transformedArray = replaceKindNbrWithValue(arrayOfPerf, arrayofKindPerf);
+  // console.log(transformedArray);
+  return (
+    <ResponsiveContainer >
+    <RadarChart  cx="48%" cy="50%" innerRadius="5%" outerRadius="58%" data={transformedArray}>
+      <PolarGrid radialLines={false} outerRadius="10%"/>
+      <PolarAngleAxis stroke={"#fff"} strokeWidth={1} tickLine={false} axisLine={true} radius="5%" fontSize={10} dataKey="kind" />
+      <Radar  dataKey="value" fill="#FF0101" fillOpacity={0.8} />
+    </RadarChart>
+  </ResponsiveContainer>
+  );
   
-  render() {
-
-    const transformedData = transformData(dataUser);
-
-    return (
-      <ResponsiveContainer >
-      <RadarChart  cx="50%" cy="50%" innerRadius="5%" outerRadius="58%" data={transformedData}>
-        <PolarGrid radialLines={false} outerRadius="10%"/>
-        <PolarAngleAxis stroke={"#fff"} strokeWidth={1} tickLine={false} axisLine={true} radius="5%" fontSize={12} dataKey="kind" />
-        <Radar  dataKey="value" fill="#FF0101" fillOpacity={0.8} />
-      </RadarChart>
-    </ResponsiveContainer>
-    );
-  }
 }

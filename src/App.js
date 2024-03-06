@@ -16,7 +16,7 @@ function App() {
         <Navbar />
         <ApiProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home/:id" element={<Home />} />
             <Route path="/profil/:id" element={<Profil />} />
           </Routes>
         </ApiProvider>

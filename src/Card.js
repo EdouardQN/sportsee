@@ -2,19 +2,16 @@ import React from 'react';
 
 const Card = (properties) => {
     const cardStyle = {
-        position:"relative",
-        left:"50%",
-        top:"70%",
-        width: '230px',
-        height: '100px', 
+        width: '220px',
+        height: '90px', 
         backgroundColor: '#FBFBFB',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
         padding: '16px',
         borderRadius: '8px',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        gap:"12px",
+        gap:"20px",
     };
     
     const imageStyle = {

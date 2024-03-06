@@ -18,7 +18,7 @@ export const getAverageData = async (id) => {
     return data;
 };
 
-export const getPerformanceData = async (id, setup) => {
+export const getPerformanceData = async (id) => {
     let url =`http://localhost:3000/user/${id}/performance`;
     const data = await fetchData(url);
     return data;

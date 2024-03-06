@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { Pie, PieChart, Cell } from "recharts";
 
 const Wrapper = styled.div`
@@ -11,15 +10,11 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #20253a;
-  font-family: "Roboto";
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  left: 20px;
-  line-height: 24px;
   position: absolute;
-  top: 8px;
+  left: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
 `;
 
 const Content = styled.div`
@@ -58,35 +53,37 @@ const Comment = styled.p`
   width: 100px;
 `;
 
-function Score() {
+function Score(props) {
+  //console.log(props.score)
+  const score = props.score*100;
+  const COLORS = ["#FF0000", "transparent"];
+
   const data = [
-    { name: "Group A", value: 88 },
-    { name: "Group B", value: 12 },
+    { name: "Filled", value: score },
+    { name: "Non-Filled", value: (1 - props.score) * 100  },
   ];
-  
-  const COLORS = ["transparent", "#FF0000"];
 
   return (
     <Wrapper>
         <Title>Score</Title>
         <Content>
           <Objectif>
-            {`12`}
+            {score}
             <span>%</span>
           </Objectif>
           <Comment>de votre objectif</Comment>
         </Content>
-        <PieChart width={250} height={250}>
+        <PieChart width={180} height={180} margin={{top:10}}>
         <Pie
           data={data}
-          cx={100}
-          cy={120}
-          innerRadius={60}
-          outerRadius={70}
-          paddingAngle={0}
-          startAngle={90}
-          endAngle={-280}
           dataKey="value"
+          cx={80}
+          cy={90}
+          innerRadius={70}
+          outerRadius={80}
+          startAngle={90}
+          endAngle={450}
+          
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

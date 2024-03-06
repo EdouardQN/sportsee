@@ -1,16 +1,30 @@
 .main {
+  position: relative;
+  top: 10%;
+  left: 15%;
   width: 90vw;
-  height: 100vh;
-  margin-left: 120px;
+  max-width: 1200px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
   gap: 24px;
 }
 
-.results {
+.main-content{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-content-graphs{
+  width: 72%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+}
+
+.main-content-results {
+  width: 20%;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
