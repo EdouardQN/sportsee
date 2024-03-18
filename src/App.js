@@ -3,7 +3,6 @@ import Header from './Header';
 import Home from './Home'
 import Navbar from './Navbar';
 import Profil from './Profil';
-import { ApiProvider } from "./api/ApiContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -14,12 +13,10 @@ function App() {
       <BrowserRouter>
         <Header />
         <Navbar />
-        <ApiProvider>
           <Routes>
-            <Route path="/home/:id" element={<Home />} />
+            <Route path="/home/:id" index element={<Home />} />
             <Route path="/profil/:id" element={<Profil />} />
           </Routes>
-        </ApiProvider>
       </BrowserRouter>
     </>
   )

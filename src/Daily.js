@@ -10,12 +10,12 @@ import {
   
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
-    const kilogram = payload[0].payload.kilogram;
+    const kilograms = payload[0].payload.kilograms;
     const calories = payload[0].payload.calories;
 
     return (
       <div style={{ backgroundColor: "#E60000", color: "#FFFFFF", padding:"16px", display:"flex", flexDirection:"column", gap:"20px"}}>
-        <div>{`${kilogram}kg`}</div>
+        <div>{`${kilograms}kg`}</div>
         <div>{`${calories}kCal`}</div>
       </div>
     );
@@ -24,31 +24,14 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function Example(props){
-  const dayly = props.dayly;
-  const sessionsDays = dayly.sessions.map(d => ((((d.day).split('-'))[2]).split(''))[1]);
-  const sessionsCalories = dayly.sessions.map(c => c.calories);
-  const sessionsKilograms = dayly.sessions.map(k => k.kilogram);
-
-
-  // Tableau pour stocker les objets résultants
-  let datas = [];
-
-  for (let i = 0; i < sessionsDays.length; i++) {
-    datas.push({
-      day: sessionsDays[i],
-      calories: sessionsCalories[i],
-      kilogram: sessionsKilograms[i]
-    });
-  }
-  // console.log("datas", datas);
-
-
-  return (
+export default function Daily(props){
+  const daily = props.daily;
+  // console.log(daily)
+  return ( 
     <BarChart
       width={600}
       height={200}
-      data={datas}
+      data={daily}
     >
       <CartesianGrid strokeDasharray="3 3" vertical="false" />
       <XAxis dataKey="day" tickLine={false} tickMargin={14} axisLine={false} />
@@ -63,7 +46,7 @@ export default function Example(props){
       <YAxis
         yAxisId="right"
         orientation="right"
-        dataKey="kilogram"
+        dataKey="kilograms"
         tickLine={false}
         minTickGap={16}
         axisLine={false}
@@ -90,7 +73,7 @@ export default function Example(props){
       />
       <Bar
         yAxisId="right"
-        dataKey="kilogram"
+        dataKey="kilograms"
         name="Poids (kg)"
         fill="#282D30"
         barSize={10}

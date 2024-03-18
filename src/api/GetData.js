@@ -1,5 +1,6 @@
 import fetchData from './Fetch'
 
+// getUserDataFromURL
 export const getUserData = async (id) => {
     let url =`http://localhost:3000/user/${id}`;
     const data = await fetchData(url);

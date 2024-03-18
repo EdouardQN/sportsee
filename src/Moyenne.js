@@ -74,10 +74,8 @@ const data = [
 
 export default function Moyenne(props) {
 
-  const average = props.average.sessions;
+  const average = props.average;
   // console.log("average", average);
-  
- 
   return (
     <>
       {/* <span>Durée moyenne des sessions</span> */}

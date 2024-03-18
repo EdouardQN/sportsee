@@ -1,7 +1,10 @@
 import { useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
-import { ApiContext } from './api/ApiContext';
-import Dayly from './Dayly'
+import UserModel from './models/UserModel';
+import DailyModel from './models/DailyModel';
+import PerformanceModel from './models/PerformanceModel';
+import AverageModel from './models/AverageModel';
+import Daily from './Daily'
 import Moyenne from './Moyenne'
 import Performance from './Performance'
 import Score from './Score'
@@ -11,37 +14,32 @@ import carbs from './assets/carbs-icon.svg'
 import fat from './assets/fat-icon.svg'
 import Card from './Card';
 
-//fetch data
-import { 
-  getUserData, 
-  getActivityData, 
-  getPerformanceData, 
-  getAverageData
-} from './api/GetData'
-
 const Home = () => {
-  const { api } = useContext(ApiContext);
   let { id } = useParams();
 
   const [user, setUser] = useState(null);
-  const [dayly, setDayly] = useState(null)
+  const [daily, setDaily] = useState(null)
   const [performance, setPerformance] = useState(null)
   const [average, setAverage] = useState(null)
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserData(id);
-        setUser(data);
+        const userData = new UserModel(id);
+        await userData.initialize();
+        setUser(userData);
+        
+        const activityData = new DailyModel(id);
+        await activityData.initialize();
+        setDaily(activityData);
 
-        const dataD = await getActivityData(id);
-        setDayly(dataD);
+        const performanceData = new PerformanceModel(id);
+        await performanceData.initialize(); 
+        setPerformance(performanceData);
 
-        const dataP = await getPerformanceData(id);
-        setPerformance(dataP);
-
-        const dataA = await getAverageData(id);
-        setAverage(dataA);
+        const averageData = new AverageModel(id);
+        await averageData.initialize(); 
+        setAverage(averageData);
 
         setLoading(false);
       } catch (error) {
@@ -50,13 +48,8 @@ const Home = () => {
       }
     };
     fetchData();
-
   }, [])
-  
-  
-  // console.log(user?.data);
-
-
+  // console.log(average);
   const poidsStyle = {
     minWidth: "664px",
     height: "200px",
@@ -102,34 +95,34 @@ const Home = () => {
       {!loading && user && 
       <main className='main'>
       <div className="main-header-profile">
-        <h1 className="main-header-profile-greet">Bonjour <span className="main-header-profile-greet-name">{user.data.userInfos.firstName} {user.data.userInfos.lastName}</span></h1>
+        <h1 className="main-header-profile-greet">Bonjour <span className="main-header-profile-greet-name">{user.firstName} {user.lastName}</span></h1>
         <p className='main-header-profile-paragraph'>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </div> 
 
       <div className='main-content'> 
         <div className='main-content-graphs'> 
           <div style={poidsStyle}>
-            <Dayly dayly={dayly.data} />
+            <Daily daily={daily.sessions} />
           </div>
 
           <div style={moyenneStyle}>
-            <Moyenne average={average.data} />
+            <Moyenne average={average.average} />
           </div>   
 
           <div style={performanceStyle}>
-            <Performance performance={performance.data} />
+            <Performance performance={performance.performances} />
           </div >
           
           <div style={scoreStyle}>
-            <Score score={user.data.todayScore || user.data.score} />
+            <Score score={user.score} />
           </div>
         </div>
         
         <div className="main-content-results">
-          <Card img={calories} alt="Icon calories" value={user.data.keyData.calorieCount} unit="kCAL" name="Calories" />
-          <Card img={protein} alt="Icon proteines" value={user.data.keyData.proteinCount} unit="g" name="Proteines" />
-          <Card img={carbs} alt="Icon carbs " value={user.data.keyData.carbohydrateCount} unit="g" name="Glucides" />
-          <Card img={fat} alt="Icon fat" value={user.data.keyData.lipidCount} unit="g" name="Lipides" />
+          <Card img={calories} alt="Icon calories" value={user.calories} unit="kCAL" name="Calories" />
+          <Card img={protein} alt="Icon proteines" value={user.proteines} unit="g" name="Proteines" />
+          <Card img={carbs} alt="Icon carbs " value={user.glucides} unit="g" name="Glucides" />
+          <Card img={fat} alt="Icon fat" value={user.lipides} unit="g" name="Lipides" />
         </div>
       </div>
     </main>
