@@ -1,8 +1,8 @@
 import './App.css';
 import Header from './Header';
-import Home from './Home'
+import Home from './pages/Home'
 import Navbar from './Navbar';
-import Profil from './Profil';
+import Profil from './pages/Profil';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -14,7 +14,7 @@ function App() {
         <Header />
         <Navbar />
           <Routes>
-            <Route path="/home/:id" index element={<Home />} />
+            <Route path="/" index element={<Home />} />
             <Route path="/profil/:id" element={<Profil />} />
           </Routes>
       </BrowserRouter>
