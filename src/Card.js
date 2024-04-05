@@ -3,7 +3,7 @@ import React from 'react';
 const Card = (properties) => {
     const cardStyle = {
         width: '220px',
-        height: '90px', 
+        height: '110px', 
         backgroundColor: '#FBFBFB',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.12)',
         padding: '16px',

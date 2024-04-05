@@ -68,7 +68,7 @@ function Score(props) {
         <Title>Score</Title>
         <Content>
           <Objectif>
-            {score}
+            {Math.round(score)}
             <span>%</span>
           </Objectif>
           <Comment>de votre objectif</Comment>

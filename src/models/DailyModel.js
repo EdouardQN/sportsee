@@ -10,7 +10,7 @@ class DailyActivity {
     // Parcourir chaque objet session et stocker les valeurs dans le tableau sessions
     sessions.forEach(session => {
       const sessionData = {
-        day: session.day.split('-')[2], // Stocker uniquement le jour
+        day: session.day.split('-')[2].split('')[1], // Stocker uniquement le jour
         calories: session.calories,
         kilograms: session.kilogram
       };

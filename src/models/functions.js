@@ -27,20 +27,16 @@ export function fetchDataFromFile(type, id){
 }
 
 export async function fetchDataFromAPI(type, id){
-  try{
-    switch (type) {
-      case "user":
-        return await getUserData(id);
-      case "activity":
-        return await getActivityData(id)
-      case "average":
-        return await getAverageData(id);
-      case "performance":
-        return await getPerformanceData(id);
-      default:
-        return await getUserData(id);
-    }
-  }catch(error){
-    console.error('Error fetching user data:', error);
+  switch (type) {
+    case "user":
+      return await getUserData(id);
+    case "activity":
+      return await getActivityData(id)
+    case "average":
+      return await getAverageData(id);
+    case "performance":
+      return await getPerformanceData(id);
+    default:
+      return await getUserData(id);
   }
 }

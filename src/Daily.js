@@ -30,7 +30,7 @@ export default function Daily(props){
   return ( 
     <BarChart
       width={600}
-      height={200}
+      height={250}
       data={daily}
     >
       <CartesianGrid strokeDasharray="3 3" vertical="false" />

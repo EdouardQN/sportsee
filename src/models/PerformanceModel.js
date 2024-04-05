@@ -6,8 +6,8 @@ class PerformanceModel {
 
   async createPerformanceData(data) {
     // Accéder aux sessions
-    // console.log(data)
     const performances = data.data;
+    // console.log(data)
     // Parcourir chaque objet session et stocker les valeurs dans le tableau performances
     performances.forEach(performance => {
       const performanceData = {
@@ -17,6 +17,16 @@ class PerformanceModel {
       this.performances.push(performanceData); // Ajouter les données de la session au tableau
     });
 
+    // Correspondance des valeurs de kind
+    const kindMapping = {
+      1: "Cardio",
+      2: "Énergie",
+      3: "Endurance",
+      4: "Force",
+      5: "Vitesse",
+      6: "Intensité"
+    };
+
     const replaceKindNbrWithValue = (arrayOfPerf, arrayofKindPerf) => {
       return arrayOfPerf.map(item => ({
         ...item,
@@ -24,7 +34,7 @@ class PerformanceModel {
         kind: arrayofKindPerf[item.kind - 1]  
       }));
     };
-    const performanceDataWithKind = replaceKindNbrWithValue(this.performances, Object.values(data.kind));
+    const performanceDataWithKind = replaceKindNbrWithValue(this.performances, Object.values(kindMapping));
     // console.log(performanceDataWithKind);
     this.performances = performanceDataWithKind;
 

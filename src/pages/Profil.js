@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import {fetchDataFromFile, fetchDataFromAPI} from '../models/functions'
+import { useNavigate } from "react-router-dom";
 
 //Classes
 import UserModel from '../models/UserModel';
@@ -23,6 +24,7 @@ import fat from '../assets/fat-icon.svg'
 
 
 const Profil = () => {
+  let navigate = useNavigate();
   let { id } = useParams();
   id = Number(id);
 
@@ -31,74 +33,74 @@ const Profil = () => {
   const [performance, setPerformance] = useState(null);
   const [average, setAverage] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const userMock = fetchDataFromFile("user", id);
     const activityMock = fetchDataFromFile("activity", id);
     const performanceMock = fetchDataFromFile("performance", id);
     const averageMock = fetchDataFromFile("average", id);
     //Modify isFetchingAPI to false if we want to use mock data
-    const isFetchingAPI = false;
+    const isFetchingAPI = true;
     const fetchData = async () => {
       try {
         const userAPI = await fetchDataFromAPI("user", id);
         const activityAPI = await fetchDataFromAPI("activity", id);
         const performanceAPI = await fetchDataFromAPI("performance", id);
         const averageAPI = await fetchDataFromAPI("average", id);
+
+        const userData = new UserModel(id);
+        const activityData = new DailyModel(id);
+        const performanceData = new PerformanceModel(id);
+        const averageData = new AverageModel(id);
         
         if(isFetchingAPI){
-          console.log("using api");
-          const userData = new UserModel(id);
+          // console.log("using api");
+        
           userData.initialize(userAPI.data);
-          setUser(userData);
-
-          const activityData = new DailyModel(id);
           activityData.initialize(activityAPI.data);
-          setDaily(activityData);
-
-          const performanceData = new PerformanceModel(id);
           performanceData.initialize(performanceAPI.data); 
-          setPerformance(performanceData);
-
-          const averageData = new AverageModel(id);
           averageData.initialize(averageAPI.data); 
+          
+          setUser(userData);
+        
+          setDaily(activityData);
+          
+          setPerformance(performanceData);
+          
           setAverage(averageData);
         }
         else{
-          console.log("using mock");
-          const userData = new UserModel(id);
+          // console.log("using mock");
           userData.initialize(userMock);
           setUser(userData);
 
-          const activityData = new DailyModel(id);
           activityData.initialize(activityMock);
           setDaily(activityData);
 
-          const performanceData = new PerformanceModel(id);
           performanceData.initialize(performanceMock);
           setPerformance(performanceData);
 
-          const averageData = new AverageModel(id);
           averageData.initialize(averageMock); 
           setAverage(averageData);
         }
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      } catch{
         setLoading(false);
+        navigate("/notfound")
       }
     };
     fetchData();
   }, [])
   // console.log(average);
         
-
   const poidsStyle = {
     minWidth: "664px",
-    height: "200px",
+    height: "280px",
     backgroundColor : "#FBFBFB",
     display : "flex",
     justifyContent : "center",
     borderRadius:"8px",
+    paddingTop:"12px",
   }
 
   const moyenneStyle = {
@@ -134,6 +136,11 @@ const Profil = () => {
 
   return (
     <>
+     
+     {/* if(user === undefined){
+      return redirect("/notfound");
+
+    } */}
       {!loading && user && 
       <main className='main'>
       <div className="main-header-profile">

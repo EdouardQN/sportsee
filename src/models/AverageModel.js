@@ -8,10 +8,14 @@ class AverageModel {
     const averageSessions = data.sessions;
     // console.log(averageSessions)
 
+    // Correspondance des valeurs de day
+    const week = ["L", "M", "M", "J", "V", "S", "D"];
+    const weekMapping = week.map(w => w);
+
     // Parcourir chaque objet session et stocker les valeurs dans le tableau average
     averageSessions.forEach(a => {
       const averageData = {
-        day: a.day,
+        day: weekMapping,
         sessionLength: a.sessionLength
       };
       this.average.push(averageData); // Ajouter les données de la session au tableau
