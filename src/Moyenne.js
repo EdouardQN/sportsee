@@ -50,28 +50,32 @@ export default function Moyenne(props) {
         <br />
         sessions
       </AverageSessionsChartTitle>
-      <LineChart data={average} height={170} width={170} margin={{top:20, left:10}}>
+      <LineChart data={average} height={200} width={200} margin={{ left:10, right:10}}>
         <XAxis 
           dataKey="day"
           stroke="rgba(255, 255, 255, 0.6)"
           axisLine={false}
-          dy={10}
+          dy={0}
           tickLine={false}
           tick={{
             fontSize: 12,
             fontWeight: 500,
           }}
+          mirror={true}
         />
         <YAxis
           dataKey="sessionLength"
           domain={[0, "dataMax + 60"]}
+          padding={{ bottom: 50 }}
           hide={true}
         />
         <Tooltip  
           content={<CustomTooltip />}
           cursor={{
-            stroke: "rgba(0, 0, 0, 0.1)",
-            strokeWidth: 32,
+            stroke: "#000000",
+            strokeOpacity: "10%",
+            strokeWidth: "22%",
+            height: "100%",
           }}
         />
         <Line 

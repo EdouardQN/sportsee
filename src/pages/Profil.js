@@ -113,6 +113,7 @@ const Profil = () => {
     display : "flex",
     justifyContent : "center",
     alignItems: "center",
+    overflow:"hidden"
   }
 
   const performanceStyle = {
@@ -136,11 +137,6 @@ const Profil = () => {
 
   return (
     <>
-     
-     {/* if(user === undefined){
-      return redirect("/notfound");
-
-    } */}
       {!loading && user && 
       <main className='main'>
       <div className="main-header-profile">
